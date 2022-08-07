@@ -32,7 +32,7 @@ const getLists = (res) => {
   axios
   .request(options)
   .then(function (lists) {
-    console.log(lists.data);
+    // console.log(lists.data);
 
     res.json(lists.data)
   })
