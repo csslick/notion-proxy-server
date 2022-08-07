@@ -9,6 +9,14 @@ const app = express()
 app.use(cors());
 
 app.get('/list', (req, res) => {
+
+  getLists(res)
+
+})
+
+app.listen(PORT, console.log(`Server run at ${PORT}`))
+
+const getLists = (res) => {
   const options = {
     method: 'POST',
     url: `https://api.notion.com/v1/databases/${process.env.NOTION_DB_ID}/query`,
@@ -20,30 +28,13 @@ app.get('/list', (req, res) => {
     },
     data: {page_size: 100}
   };
-  
-  // const lists = await getLists()
-  // res.json(lists)
+
   axios
   .request(options)
   .then(function (lists) {
     console.log(lists.data);
-    // return res.data;
+
     res.json(lists.data)
-  })
-  .catch(function (error) {
-    console.error(error);
-  });
-  // res.json(lists)
-})
-
-app.listen(PORT, console.log(`Server run at ${PORT}`))
-
-const getLists = () => {
-  axios
-  .request(options)
-  .then(function (res) {
-    console.log(res.data);
-    return res.data;
   })
   .catch(function (error) {
     console.error(error);
